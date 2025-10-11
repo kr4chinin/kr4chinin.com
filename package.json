@@ -1,14 +1,19 @@
 {
-  "name": "kr4chinin.com",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.14.4"
-  }
+	"name": "kr4chinin.com",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"format": "prettier --write ."
+	},
+	"dependencies": {
+		"astro": "^5.14.4"
+	},
+	"devDependencies": {
+		"prettier": "^3.6.2",
+		"prettier-plugin-organize-imports": "^4.3.0"
+	}
 }
