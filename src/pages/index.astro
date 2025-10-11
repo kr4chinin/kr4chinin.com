@@ -1,23 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
+import Link from '../components/Link.astro';
+import { Socials } from '../constants';
 import '../styles/global.css';
 ---
 
 <Layout>
 	<header class="bg-stone-200 shadow-sm">
-		<div class="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-6">
-			<h1 class="text-4xl font-bold">Ilya Kruchinin</h1>
+		<div class="mx-auto max-w-3xl px-4 py-6">
+			<div class="flex gap-8">
+				<div class="h-[150px] w-[150px]">
+					<img
+						width={150}
+						height={150}
+						src="/avatar.png"
+						alt="Ilya's avatar"
+						class="rounded-full"
+					/>
+				</div>
 
-			<h2 class="text-gray-700">Full Stack Developer</h2>
-			<h2 class="text-gray-700">I code, build, and learn</h2>
+				<div class="flex flex-col gap-4">
+					<h1 class="text-4xl font-bold">Ilya Kruchinin</h1>
+
+					<h2 class="text-gray-700">Full Stack Developer</h2>
+					<h2 class="text-gray-700">I code, build, and learn</h2>
+
+					<div class="flex items-center gap-2">
+						<Link href={Socials.X}>@kr4chinin</Link>
+						{'•'}
+						<Link href={Socials.GITHUB}>github</Link>
+						{'•'}
+						<Link href={Socials.LINKED_IN}>linkedin</Link>
+						{'•'}
+						<Link href={Socials.EMAIL}>kr4chinin@icloud.com</Link>
+					</div>
+				</div>
+			</div>
 		</div>
 	</header>
 
 	<div class="flex-1"></div>
 
 	<footer class="mt-12 bg-stone-200 py-8">
-		<div class="mx-auto max-w-4xl px-4 text-center">
+		<div class="mx-auto max-w-3xl px-4 text-center">
 			<p class="text-gray-600">Copyright © 2025 Ilya Kruchinin</p>
 		</div>
 	</footer>
