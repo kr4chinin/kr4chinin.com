@@ -3,6 +3,7 @@ import { Socials } from '~/constants';
 import SocialLink from './SocialLink.astro';
 import Navigation from './Navigation.astro';
 import type { LinkItem } from '~/models/LinkItem';
+import LocationIcon from '~/assets/location.svg';
 
 const delimiter = '•';
 
@@ -30,8 +31,17 @@ const socials: LinkItem[] = [
 			<div class="flex flex-col gap-4">
 				<h1 class="text-4xl font-bold text-gray-900">Ilya Kruchinin</h1>
 
-				<h2>Full Stack Developer</h2>
-				<h2>I code, build, and learn</h2>
+				<div class="flex items-center gap-4">
+					<h2>Full Stack Developer</h2>
+
+					<address class="flex items-center gap-2 not-italic">
+						<LocationIcon class="h-4 w-4" />
+
+						<h2>Bali</h2>
+					</address>
+				</div>
+
+				<h2>Engineering solutions</h2>
 
 				<div class="flex items-center gap-2">
 					{
