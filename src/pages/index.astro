@@ -1,43 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Link from '../components/Link.astro';
-import { Socials } from '../constants';
+
+import AboutHeader from '~/components/About/Header/AboutHeader.astro';
 import '../styles/global.css';
 ---
 
 <Layout>
-	<header class="bg-stone-200 shadow-sm">
-		<div class="mx-auto max-w-3xl px-4 py-6">
-			<div class="flex gap-8">
-				<div class="h-[150px] w-[150px]">
-					<img
-						width={150}
-						height={150}
-						src="/avatar.png"
-						alt="Ilya's avatar"
-						class="rounded-full"
-					/>
-				</div>
-
-				<div class="flex flex-col gap-4">
-					<h1 class="text-4xl font-bold">Ilya Kruchinin</h1>
-
-					<h2 class="text-gray-700">Full Stack Developer</h2>
-					<h2 class="text-gray-700">I code, build, and learn</h2>
-
-					<div class="flex items-center gap-2">
-						<Link href={Socials.X}>@kr4chinin</Link>
-						{'•'}
-						<Link href={Socials.GITHUB}>github</Link>
-						{'•'}
-						<Link href={Socials.LINKED_IN}>linkedin</Link>
-						{'•'}
-						<Link href={Socials.EMAIL}>kr4chinin@icloud.com</Link>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+	<AboutHeader />
 
 	<div class="flex-1"></div>
 

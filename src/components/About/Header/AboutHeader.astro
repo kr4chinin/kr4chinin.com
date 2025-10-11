@@ -1,0 +1,45 @@
+---
+import { Socials } from '~/constants';
+import SocialLink from './SocialLink.astro';
+import Navigation from './Navigation.astro';
+import type { LinkItem } from '~/models/LinkItem';
+
+const delimiter = '•';
+
+const socials: LinkItem[] = [
+	{ href: Socials.X, label: '@kr4chinin' },
+	{ href: Socials.GITHUB, label: 'github' },
+	{ href: Socials.LINKED_IN, label: 'linkedin' },
+	{ href: Socials.EMAIL, label: 'kr4chinin@icloud.com' },
+];
+---
+
+<header class="flex flex-col shadow-sm">
+	<div class="bg-stone-200">
+		<div class="mx-auto flex max-w-3xl gap-8 px-4 py-6">
+			<div class="h-[150px] w-[150px]">
+				<img width={150} height={150} src="/avatar.png" alt="Ilya's avatar" class="rounded-full" />
+			</div>
+
+			<div class="flex flex-col gap-4">
+				<h1 class="text-4xl font-bold">Ilya Kruchinin</h1>
+
+				<h2 class="text-gray-700">Full Stack Developer</h2>
+				<h2 class="text-gray-700">I code, build, and learn</h2>
+
+				<div class="flex items-center gap-2">
+					{
+						socials.map((social, idx) => (
+							<>
+								<SocialLink href={social.href}>{social.label}</SocialLink>
+								{idx < socials.length - 1 && delimiter}
+							</>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<Navigation />
+</header>
