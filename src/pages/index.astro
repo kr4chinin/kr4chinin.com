@@ -1,14 +1,16 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import AboutHeader from '~/components/About/Header/AboutHeader.astro';
 import Footer from '~/components/About/Footer/Footer.astro';
+import AboutHeader from '~/components/About/Header/AboutHeader.astro';
+import SocialLink from '~/components/About/Header/SocialLink.astro';
+import { Socials } from '~/constants';
+import Layout from '~/layouts/Layout.astro';
 ---
 
 <Layout>
 	<AboutHeader />
 
 	<div class="mx-auto flex w-full max-w-3xl flex-grow flex-col gap-4 px-4 py-6">
-		<p>Hi! I’m Ilya Kruchinin.</p>
+		<p>Hi! I’m <SocialLink href={Socials.GITHUB}>Ilya Kruchinin</SocialLink>.</p>
 
 		<p>
 			I’m a Senior Developer at Web3 Project, where I build performant, user-friendly interfaces

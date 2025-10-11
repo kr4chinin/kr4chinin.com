@@ -1,6 +1,7 @@
 ---
 import LinkedInIcon from '~/assets/linkedin.svg';
 import MailIcon from '~/assets/mail.svg';
+import TelegramIcon from '~/assets/telegram.svg';
 import XIcon from '~/assets/x.svg';
 import GithubIcon from '~/assets/github.svg';
 
@@ -12,6 +13,10 @@ import FooterLinkIcon from './FooterLinkIcon.astro';
 <footer class="mt-12 bg-stone-200 py-8">
 	<div class="mx-auto flex max-w-3xl flex-col gap-2 px-4 text-center">
 		<div class="flex justify-center gap-6">
+			<FooterLinkIcon href={Socials.TELEGRAM}>
+				<TelegramIcon />
+			</FooterLinkIcon>
+
 			<FooterLinkIcon href={Socials.X}>
 				<XIcon />
 			</FooterLinkIcon>
