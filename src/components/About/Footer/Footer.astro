@@ -1,16 +1,34 @@
 ---
+import LinkedInIcon from '~/assets/linkedin.svg';
+import MailIcon from '~/assets/mail.svg';
+import XIcon from '~/assets/x.svg';
+import GithubIcon from '~/assets/github.svg';
+
 import { Socials } from '~/constants';
+
+import FooterLinkIcon from './FooterLinkIcon.astro';
 ---
 
 <footer class="mt-12 bg-stone-200 py-8">
-	<div>
-		<a href={Socials.X}><i class="fab fa-x-twitter fa-lg text-gray-500"></i></a>
-		<!-- <a href={Socials.GITHUB} class="text-gray-500"><Github size={24} /></a>
-		<a href={Socials.LINKED_IN} class="text-gray-500"><Linkedin size={24} /></a>
-		<a href={Socials.EMAIL} class="text-gray-500"><Mail size={24} /></a> -->
-	</div>
+	<div class="mx-auto flex max-w-3xl flex-col gap-2 px-4 text-center">
+		<div class="flex justify-center gap-6">
+			<FooterLinkIcon href={Socials.X}>
+				<XIcon />
+			</FooterLinkIcon>
 
-	<div class="mx-auto max-w-3xl px-4 text-center">
+			<FooterLinkIcon href={Socials.GITHUB}>
+				<GithubIcon />
+			</FooterLinkIcon>
+
+			<FooterLinkIcon href={Socials.LINKED_IN}>
+				<LinkedInIcon />
+			</FooterLinkIcon>
+
+			<FooterLinkIcon href={Socials.EMAIL}>
+				<MailIcon />
+			</FooterLinkIcon>
+		</div>
+
 		<p class="text-gray-500">Copyright © 2025 Ilya Kruchinin</p>
 	</div>
 </footer>
