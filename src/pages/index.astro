@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 import AboutHeader from '~/components/About/Header/AboutHeader.astro';
 import '../styles/global.css';
+import Footer from '~/components/About/Footer/Footer.astro';
 ---
 
 <Layout>
@@ -10,9 +11,5 @@ import '../styles/global.css';
 
 	<div class="flex-1"></div>
 
-	<footer class="mt-12 bg-stone-200 py-8">
-		<div class="mx-auto max-w-3xl px-4 text-center">
-			<p class="text-gray-600">Copyright © 2025 Ilya Kruchinin</p>
-		</div>
-	</footer>
+	<Footer />
 </Layout>
