@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import '@fontsource-variable/geist-mono';
 
 import SpeedInsights from '@vercel/speed-insights/astro';
 
@@ -17,6 +16,15 @@ const ogImageUrl = new URL('/og.png', Astro.site).toString();
 
 		<title>Ilya Kruchinin</title>
 		<link rel="icon" type="image/png" href="/avatar.png" />
+
+		<!-- Preload Geist Mono -->
+		<link
+			as="font"
+			rel="preload"
+			type="font/woff2"
+			crossorigin="anonymous"
+			href="/fonts/GeistMono[wght].woff2"
+		/>
 
 		<link
 			rel="stylesheet"
