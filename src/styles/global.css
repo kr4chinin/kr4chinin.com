@@ -3,3 +3,14 @@
 body {
 	font-family: 'Geist Mono Variable', ui-monospace, monospace;
 }
+
+main {
+	/* Subtle dotted pattern using layered radial-gradients */
+	background-image:
+		radial-gradient(rgb(0 0 0 / 8%) 1px, transparent 1px),
+		radial-gradient(rgb(0 0 0 / 7%) 1px, transparent 1px);
+	background-position:
+		0 0,
+		8px 8px;
+	background-size: 16px 16px;
+}
