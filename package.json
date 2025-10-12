@@ -12,6 +12,7 @@
 		"lint:css:fix": "pnpm dlx stylelint \"**/*.css\" --fix"
 	},
 	"dependencies": {
+		"@astrojs/mdx": "^4.3.7",
 		"@vercel/speed-insights": "^1.2.0",
 		"astro": "^5.14.4"
 	},
