@@ -51,7 +51,7 @@ const socials: LinkItem[] = [
 						socials.map((social, idx) => (
 							<>
 								<SocialLink href={social.href}>{social.label}</SocialLink>
-								{idx < socials.length - 1 && delimiter}
+								{idx < socials.length - 1 && <i class="max-sm:text-xs">{delimiter}</i>}
 							</>
 						))
 					}
