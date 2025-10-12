@@ -1,15 +1,7 @@
 @import 'tailwindcss';
 
-@font-face {
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: optional;
-	font-family: 'Geist Mono';
-	src: url('/fonts/GeistMono[wght].woff2') format('woff2-variations');
-}
-
 body {
-	font-family: 'Geist Mono', ui-monospace, monospace;
+	font-family: ui-monospace, monospace;
 }
 
 main {
