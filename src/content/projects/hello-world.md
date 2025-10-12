@@ -31,4 +31,4 @@ helloWorld();
 
 ## Conclusion
 
-Replace this file with your own project details!
+Some conclusion.
