@@ -2,7 +2,6 @@
 	"name": "kr4chinin.com",
 	"type": "module",
 	"version": "0.0.1",
-	"packageManager": "pnpm@10.18.2",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro build",
@@ -27,5 +26,13 @@
 		"stylelint": "^16.25.0",
 		"stylelint-config-clean-order": "^7.0.0",
 		"stylelint-config-standard-scss": "^16.0.0"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@vercel/speed-insights"
+		]
+	},
+	"engines": {
+		"pnpm": ">=10.0.0"
 	}
 }
