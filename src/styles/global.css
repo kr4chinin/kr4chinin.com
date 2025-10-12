@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-body {
+html {
 	font-family: ui-monospace, monospace;
 }
 
