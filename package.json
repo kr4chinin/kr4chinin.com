@@ -11,7 +11,7 @@
 		"format": "pnpm dlx prettier --write .",
 		"ts": "tsc --noEmit",
 		"lint:css:fix": "pnpm dlx stylelint \"**/*.css\" --fix",
-		"postinstall": "pnpm dlx simple-git-hooks"
+		"postinstall": "test \"$CI\" = true || pnpm dlx simple-git-hooks"
 	},
 	"dependencies": {
 		"@fontsource-variable/geist-mono": "^5.2.7",
