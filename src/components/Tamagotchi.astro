@@ -2,26 +2,108 @@
 
 ---
 
-<div class="tamagotchi" aria-hidden="true">
-	<svg viewBox="0 0 16 16" class="pet" xmlns="http://www.w3.org/2000/svg">
-		<rect x="3" y="2" width="2" height="2" fill="#f5a4c7"></rect>
-		<rect x="11" y="2" width="2" height="2" fill="#f5a4c7"></rect>
-		<rect x="4" y="3" width="1" height="1" fill="#ffd0e3"></rect>
-		<rect x="11" y="3" width="1" height="1" fill="#ffd0e3"></rect>
-		<rect x="3" y="3" width="10" height="2" fill="#ffd0e3"></rect>
-		<rect x="2" y="5" width="12" height="6" fill="#ffd0e3"></rect>
-		<rect x="3" y="11" width="10" height="1" fill="#ffd0e3"></rect>
-		<rect class="eye" x="5" y="6" width="2" height="3" fill="#222"></rect>
-		<rect class="eye" x="9" y="6" width="2" height="3" fill="#222"></rect>
-		<rect class="sparkle" x="5" y="6" width="1" height="1" fill="#fff"></rect>
-		<rect class="sparkle" x="9" y="6" width="1" height="1" fill="#fff"></rect>
-		<rect x="6" y="9" width="1" height="1" fill="#f5a4c7"></rect>
-		<rect x="9" y="9" width="1" height="1" fill="#f5a4c7"></rect>
-		<rect x="7" y="10" width="2" height="1" fill="#c4517a"></rect>
-		<rect class="leg leg-l" x="4" y="12" width="2" height="2" fill="#ffb1d0"></rect>
-		<rect class="leg leg-r" x="10" y="12" width="2" height="2" fill="#ffb1d0"></rect>
-	</svg>
+<div class="tamagotchi" id="tamagotchi">
+	<button class="pet-button" type="button" aria-label="Poke the pet">
+		<div class="pet-body">
+			<span class="puff" aria-hidden="true">
+				<svg viewBox="0 0 16 16" class="puff-svg" xmlns="http://www.w3.org/2000/svg">
+					<rect x="2" y="6" width="2" height="2" fill="#fde047"></rect>
+					<rect x="12" y="6" width="2" height="2" fill="#f0abfc"></rect>
+					<rect x="6" y="2" width="2" height="2" fill="#7dd3fc"></rect>
+					<rect x="6" y="12" width="2" height="2" fill="#fde047"></rect>
+					<rect x="3" y="3" width="1" height="1" fill="#fff"></rect>
+					<rect x="12" y="3" width="1" height="1" fill="#fff"></rect>
+					<rect x="3" y="12" width="1" height="1" fill="#fff"></rect>
+					<rect x="12" y="12" width="1" height="1" fill="#fff"></rect>
+				</svg>
+			</span>
+
+			<svg viewBox="0 0 16 16" class="pet pet-cat" xmlns="http://www.w3.org/2000/svg">
+				<rect x="3" y="2" width="2" height="2" fill="#f5a4c7"></rect>
+				<rect x="11" y="2" width="2" height="2" fill="#f5a4c7"></rect>
+				<rect x="3" y="3" width="10" height="2" fill="#ffd0e3"></rect>
+				<rect x="2" y="5" width="12" height="6" fill="#ffd0e3"></rect>
+				<rect x="3" y="11" width="10" height="1" fill="#ffd0e3"></rect>
+				<rect class="eye" x="5" y="6" width="2" height="3" fill="#222"></rect>
+				<rect class="eye" x="9" y="6" width="2" height="3" fill="#222"></rect>
+				<rect class="sparkle" x="5" y="6" width="1" height="1" fill="#fff"></rect>
+				<rect class="sparkle" x="9" y="6" width="1" height="1" fill="#fff"></rect>
+				<rect x="6" y="9" width="1" height="1" fill="#f5a4c7"></rect>
+				<rect x="9" y="9" width="1" height="1" fill="#f5a4c7"></rect>
+				<rect x="7" y="10" width="2" height="1" fill="#c4517a"></rect>
+				<rect class="leg leg-l" x="4" y="12" width="2" height="2" fill="#ffb1d0"></rect>
+				<rect class="leg leg-r" x="10" y="12" width="2" height="2" fill="#ffb1d0"></rect>
+			</svg>
+
+			<svg viewBox="0 0 16 16" class="pet pet-frog" xmlns="http://www.w3.org/2000/svg">
+				<rect x="3" y="2" width="2" height="2" fill="#7ec850"></rect>
+				<rect x="11" y="2" width="2" height="2" fill="#7ec850"></rect>
+				<rect x="3" y="3" width="2" height="1" fill="#fff"></rect>
+				<rect x="11" y="3" width="2" height="1" fill="#fff"></rect>
+				<rect class="eye" x="3" y="3" width="1" height="1" fill="#222"></rect>
+				<rect class="eye" x="11" y="3" width="1" height="1" fill="#222"></rect>
+				<rect x="2" y="4" width="12" height="7" fill="#7ec850"></rect>
+				<rect x="3" y="11" width="10" height="1" fill="#7ec850"></rect>
+				<rect x="5" y="6" width="6" height="3" fill="#bce39a"></rect>
+				<rect x="6" y="9" width="4" height="1" fill="#3a6b1f"></rect>
+				<rect class="leg leg-l" x="2" y="12" width="3" height="2" fill="#5a9c39"></rect>
+				<rect class="leg leg-r" x="11" y="12" width="3" height="2" fill="#5a9c39"></rect>
+			</svg>
+		</div>
+	</button>
 </div>
+
+<script>
+	const root = document.getElementById('tamagotchi');
+	const button = root?.querySelector<HTMLButtonElement>('.pet-button');
+
+	if (root && button) {
+		let isFrog = false;
+		let chaosTimer: number | null = null;
+		let prevX = 0;
+
+		const PET_SIZE = 48;
+
+		function jump() {
+			const x = Math.floor(Math.random() * Math.max(window.innerWidth - PET_SIZE, 1));
+			const y = Math.floor(Math.random() * Math.max(window.innerHeight - PET_SIZE, 1));
+			const r = Math.floor((Math.random() - 0.5) * 30);
+			const flip = x < prevX ? -1 : 1;
+			prevX = x;
+			root!.style.setProperty('--fx', `${x}px`);
+			root!.style.setProperty('--fy', `${y}px`);
+			root!.style.setProperty('--fr', `${r}deg`);
+			root!.style.setProperty('--fsx', String(flip));
+			chaosTimer = window.setTimeout(jump, 350 + Math.random() * 600);
+		}
+
+		function startChaos() {
+			prevX = 0;
+			jump();
+		}
+
+		function stopChaos() {
+			if (chaosTimer !== null) {
+				clearTimeout(chaosTimer);
+				chaosTimer = null;
+			}
+			root!.style.removeProperty('--fx');
+			root!.style.removeProperty('--fy');
+			root!.style.removeProperty('--fr');
+			root!.style.removeProperty('--fsx');
+		}
+
+		button.addEventListener('click', () => {
+			isFrog = !isFrog;
+			root.classList.remove('puffing');
+			void root.offsetWidth;
+			root.classList.add('puffing');
+			root.classList.toggle('frog', isFrog);
+			if (isFrog) startChaos();
+			else stopChaos();
+		});
+	}
+</script>
 
 <style>
 	.tamagotchi {
@@ -35,12 +117,81 @@
 		animation: walk 28s linear infinite;
 	}
 
+	.tamagotchi.frog {
+		top: 0;
+		bottom: auto;
+		animation: none;
+		transform: translate(var(--fx, 0px), var(--fy, 0px)) rotate(var(--fr, 0deg))
+			scaleX(var(--fsx, 1));
+		transition:
+			transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+			top 0s,
+			bottom 0s;
+	}
+
+	.pet-button {
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		border: 0;
+		background: none;
+		pointer-events: auto;
+		cursor: pointer;
+	}
+
+	.pet-button:focus-visible {
+		outline: 2px solid #c4517a;
+		outline-offset: 2px;
+		border-radius: 4px;
+	}
+
+	.pet-body {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
 	.pet {
+		position: absolute;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		image-rendering: pixelated;
 		filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.15));
+		transition: opacity 0.18s;
 		animation: bob 0.5s steps(2) infinite;
+	}
+
+	.pet-frog {
+		opacity: 0;
+	}
+
+	.frog .pet-cat {
+		opacity: 0;
+	}
+
+	.frog .pet-frog {
+		opacity: 1;
+	}
+
+	.puff {
+		position: absolute;
+		inset: -25%;
+		width: 150%;
+		height: 150%;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.puff-svg {
+		width: 100%;
+		height: 100%;
+		image-rendering: pixelated;
+	}
+
+	.puffing .puff {
+		animation: puff 0.5s ease-out forwards;
 	}
 
 	.leg {
@@ -106,12 +257,26 @@
 		}
 	}
 
+	@keyframes puff {
+		0% {
+			transform: scale(0.3) rotate(0deg);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(1.6) rotate(45deg);
+			opacity: 0;
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.tamagotchi,
+		.tamagotchi.frog,
 		.pet,
 		.leg,
-		.eye {
-			animation: none;
+		.eye,
+		.puff {
+			animation: none !important;
+			transition: none !important;
 		}
 	}
 </style>
