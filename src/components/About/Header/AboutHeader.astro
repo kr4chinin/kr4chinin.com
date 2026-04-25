@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 
 import { Socials } from '~/constants';
 import SocialLink from './SocialLink.astro';
+import Navigation from './Navigation.astro';
 import type { LinkItem } from '~/models/LinkItem';
 import LocationIcon from '~/assets/location.svg';
 
@@ -58,4 +59,6 @@ const socials: LinkItem[] = [
 			</div>
 		</div>
 	</div>
+
+	<Navigation />
 </header>
