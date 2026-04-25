@@ -68,9 +68,14 @@
 	</button>
 </div>
 
+<div class="pet-hint" id="pet-hint" aria-hidden="true">
+	<div class="pet-hint-bubble">Нажми на меня!</div>
+</div>
+
 <script>
 	const root = document.getElementById('tamagotchi');
 	const button = root?.querySelector<HTMLButtonElement>('.pet-button');
+	const hint = document.getElementById('pet-hint');
 
 	if (root && button) {
 		type Mode = 'cat' | 'frog' | 'fish';
@@ -224,7 +229,52 @@
 			}
 		}
 
+		const HINT_KEY = 'tamagotchi-hint-dismissed';
+		let hintDismissed = false;
+		let hintTimer: number | null = null;
+		let hintRaf: number | null = null;
+
+		try {
+			hintDismissed = localStorage.getItem(HINT_KEY) === '1';
+		} catch {}
+
+		function followCat() {
+			if (!hint || !root) return;
+			const rect = root.getBoundingClientRect();
+			hint.style.left = `${rect.left + rect.width / 2}px`;
+			hint.style.top = `${rect.top - 8}px`;
+			hintRaf = requestAnimationFrame(followCat);
+		}
+
+		function showHint() {
+			if (!hint || hintDismissed) return;
+			hint.classList.add('show');
+			followCat();
+		}
+
+		function hideHint() {
+			if (hintDismissed) return;
+			hintDismissed = true;
+			try {
+				localStorage.setItem(HINT_KEY, '1');
+			} catch {}
+			hint?.classList.remove('show');
+			if (hintTimer !== null) {
+				clearTimeout(hintTimer);
+				hintTimer = null;
+			}
+			if (hintRaf !== null) {
+				cancelAnimationFrame(hintRaf);
+				hintRaf = null;
+			}
+		}
+
+		if (!hintDismissed && hint) {
+			hintTimer = window.setTimeout(showHint, 3000);
+		}
+
 		button.addEventListener('click', () => {
+			hideHint();
 			const next: Mode = mode === 'cat' ? 'frog' : mode === 'frog' ? 'fish' : 'cat';
 
 			root.classList.remove('puffing');
@@ -481,6 +531,67 @@
 		}
 	}
 
+	.pet-hint {
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 41;
+		opacity: 0;
+		pointer-events: none;
+		transform: translate(-50%, -100%);
+		transition: opacity 0.25s ease;
+	}
+
+	.pet-hint.show {
+		opacity: 1;
+	}
+
+	.pet-hint-bubble {
+		position: relative;
+		padding: 5px 9px;
+		border: 2px solid #1f2937;
+		border-radius: 7px;
+		background: #fff;
+		color: #1f2937;
+		font:
+			11px/1.2 ui-monospace,
+			monospace;
+		white-space: nowrap;
+		box-shadow: 2px 2px 0 #1f2937;
+		animation: hint-bob 1.7s ease-in-out infinite;
+	}
+
+	.pet-hint-bubble::before,
+	.pet-hint-bubble::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		bottom: -8px;
+		width: 0;
+		height: 0;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-top: 8px solid #1f2937;
+		transform: translateX(-50%);
+	}
+
+	.pet-hint-bubble::after {
+		bottom: -5px;
+		border-left-width: 4px;
+		border-right-width: 4px;
+		border-top: 6px solid #fff;
+	}
+
+	@keyframes hint-bob {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-3px);
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.tamagotchi,
 		.tamagotchi.frog,
@@ -490,7 +601,8 @@
 		.leg,
 		.fin,
 		.eye,
-		.puff {
+		.puff,
+		.pet-hint-bubble {
 			animation: none !important;
 			transition: none !important;
 		}
