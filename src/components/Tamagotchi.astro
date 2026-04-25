@@ -1,0 +1,117 @@
+---
+
+---
+
+<div class="tamagotchi" aria-hidden="true">
+	<svg viewBox="0 0 16 16" class="pet" xmlns="http://www.w3.org/2000/svg">
+		<rect x="3" y="2" width="2" height="2" fill="#f5a4c7"></rect>
+		<rect x="11" y="2" width="2" height="2" fill="#f5a4c7"></rect>
+		<rect x="4" y="3" width="1" height="1" fill="#ffd0e3"></rect>
+		<rect x="11" y="3" width="1" height="1" fill="#ffd0e3"></rect>
+		<rect x="3" y="3" width="10" height="2" fill="#ffd0e3"></rect>
+		<rect x="2" y="5" width="12" height="6" fill="#ffd0e3"></rect>
+		<rect x="3" y="11" width="10" height="1" fill="#ffd0e3"></rect>
+		<rect class="eye" x="5" y="6" width="2" height="3" fill="#222"></rect>
+		<rect class="eye" x="9" y="6" width="2" height="3" fill="#222"></rect>
+		<rect class="sparkle" x="5" y="6" width="1" height="1" fill="#fff"></rect>
+		<rect class="sparkle" x="9" y="6" width="1" height="1" fill="#fff"></rect>
+		<rect x="6" y="9" width="1" height="1" fill="#f5a4c7"></rect>
+		<rect x="9" y="9" width="1" height="1" fill="#f5a4c7"></rect>
+		<rect x="7" y="10" width="2" height="1" fill="#c4517a"></rect>
+		<rect class="leg leg-l" x="4" y="12" width="2" height="2" fill="#ffb1d0"></rect>
+		<rect class="leg leg-r" x="10" y="12" width="2" height="2" fill="#ffb1d0"></rect>
+	</svg>
+</div>
+
+<style>
+	.tamagotchi {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 48px;
+		height: 48px;
+		pointer-events: none;
+		z-index: 40;
+		animation: walk 28s linear infinite;
+	}
+
+	.pet {
+		width: 100%;
+		height: 100%;
+		image-rendering: pixelated;
+		filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.15));
+		animation: bob 0.5s steps(2) infinite;
+	}
+
+	.leg {
+		animation: step 0.5s steps(2) infinite;
+	}
+
+	.leg-r {
+		animation-delay: 0.25s;
+	}
+
+	.eye {
+		transform-origin: center;
+		animation: blink 5s infinite;
+	}
+
+	@keyframes walk {
+		0% {
+			transform: translateX(0) scaleX(1);
+		}
+		49% {
+			transform: translateX(calc(100vw - 48px)) scaleX(1);
+		}
+		50% {
+			transform: translateX(calc(100vw - 48px)) scaleX(-1);
+		}
+		99% {
+			transform: translateX(0) scaleX(-1);
+		}
+		100% {
+			transform: translateX(0) scaleX(1);
+		}
+	}
+
+	@keyframes bob {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-1px);
+		}
+	}
+
+	@keyframes step {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-1px);
+		}
+	}
+
+	@keyframes blink {
+		0%,
+		92%,
+		96%,
+		100% {
+			transform: scaleY(1);
+		}
+		94% {
+			transform: scaleY(0.1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tamagotchi,
+		.pet,
+		.leg,
+		.eye {
+			animation: none;
+		}
+	}
+</style>

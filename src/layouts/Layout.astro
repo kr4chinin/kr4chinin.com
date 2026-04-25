@@ -1,5 +1,6 @@
 ---
 import Footer from '~/components/Footer/Footer.astro';
+import Tamagotchi from '~/components/Tamagotchi.astro';
 import '../styles/global.css';
 
 import SpeedInsights from '@vercel/speed-insights/astro';
@@ -50,5 +51,6 @@ const ogImageUrl = new URL('/og.png', Astro.site).toString();
 		<slot />
 		<SpeedInsights />
 		<Footer />
+		<Tamagotchi />
 	</body>
 </html>
