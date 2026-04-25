@@ -49,6 +49,21 @@
 				<rect class="leg leg-l" x="2" y="12" width="3" height="2" fill="#5a9c39"></rect>
 				<rect class="leg leg-r" x="11" y="12" width="3" height="2" fill="#5a9c39"></rect>
 			</svg>
+
+			<svg viewBox="0 0 16 16" class="pet pet-fish" xmlns="http://www.w3.org/2000/svg">
+				<rect x="1" y="6" width="2" height="4" fill="#fb923c"></rect>
+				<rect x="2" y="5" width="1" height="1" fill="#fb923c"></rect>
+				<rect x="2" y="10" width="1" height="1" fill="#fb923c"></rect>
+				<rect x="3" y="6" width="9" height="4" fill="#fb923c"></rect>
+				<rect x="4" y="5" width="7" height="1" fill="#fb923c"></rect>
+				<rect x="4" y="10" width="7" height="1" fill="#fb923c"></rect>
+				<rect x="5" y="7" width="6" height="2" fill="#fdba74"></rect>
+				<rect class="eye" x="9" y="6" width="2" height="2" fill="#222"></rect>
+				<rect x="10" y="6" width="1" height="1" fill="#fff"></rect>
+				<rect x="13" y="8" width="1" height="1" fill="#c2410c"></rect>
+				<rect class="fin fin-top" x="6" y="4" width="2" height="1" fill="#f97316"></rect>
+				<rect class="fin fin-bottom" x="6" y="11" width="2" height="1" fill="#f97316"></rect>
+			</svg>
 		</div>
 	</button>
 </div>
@@ -58,27 +73,73 @@
 	const button = root?.querySelector<HTMLButtonElement>('.pet-button');
 
 	if (root && button) {
-		let isFrog = false;
-		let chaosTimer: number | null = null;
-		let prevX = 0;
-
+		type Mode = 'cat' | 'frog' | 'fish';
 		const PET_SIZE = 48;
 
+		let mode: Mode = 'cat';
+		let chaosTimer: number | null = null;
+		let swimTimer: number | null = null;
+
+		let prevX = 0;
+		let prevY = 0;
+		let hasJumped = false;
+
+		let swimX = 0;
+		let swimY = 0;
+
+		function clamp(value: number, min: number, max: number) {
+			return Math.max(min, Math.min(max, value));
+		}
+
+		function spawnSplash(cx: number, cy: number) {
+			const splash = document.createElement('div');
+			splash.className = 'frog-splash';
+			splash.style.left = `${cx}px`;
+			splash.style.top = `${cy}px`;
+			splash.innerHTML =
+				'<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+				'<rect x="2" y="6" width="2" height="2" fill="#7ec850"/>' +
+				'<rect x="12" y="6" width="2" height="2" fill="#5a9c39"/>' +
+				'<rect x="6" y="2" width="2" height="2" fill="#bce39a"/>' +
+				'<rect x="6" y="12" width="2" height="2" fill="#7ec850"/>' +
+				'<rect x="3" y="3" width="1" height="1" fill="#bce39a"/>' +
+				'<rect x="12" y="3" width="1" height="1" fill="#5a9c39"/>' +
+				'<rect x="3" y="12" width="1" height="1" fill="#7ec850"/>' +
+				'<rect x="12" y="12" width="1" height="1" fill="#bce39a"/>' +
+				'</svg>';
+			document.body.appendChild(splash);
+			window.setTimeout(() => splash.remove(), 700);
+		}
+
 		function jump() {
-			const x = Math.floor(Math.random() * Math.max(window.innerWidth - PET_SIZE, 1));
-			const y = Math.floor(Math.random() * Math.max(window.innerHeight - PET_SIZE, 1));
-			const r = Math.floor((Math.random() - 0.5) * 30);
+			const maxStep = 360;
+			const dx = (Math.random() - 0.5) * maxStep * 2;
+			const dy = (Math.random() - 0.5) * maxStep * 2;
+			const x = clamp(Math.floor(prevX + dx), 0, Math.max(window.innerWidth - PET_SIZE, 0));
+			const y = clamp(Math.floor(prevY + dy), 0, Math.max(window.innerHeight - PET_SIZE, 0));
+			const r = Math.floor((Math.random() - 0.5) * 18);
 			const flip = x < prevX ? -1 : 1;
+
+			if (hasJumped) {
+				spawnSplash(prevX + PET_SIZE / 2, prevY + PET_SIZE / 2);
+			}
+
 			prevX = x;
+			prevY = y;
+			hasJumped = true;
+
 			root!.style.setProperty('--fx', `${x}px`);
 			root!.style.setProperty('--fy', `${y}px`);
 			root!.style.setProperty('--fr', `${r}deg`);
 			root!.style.setProperty('--fsx', String(flip));
-			chaosTimer = window.setTimeout(jump, 350 + Math.random() * 600);
+
+			chaosTimer = window.setTimeout(jump, 850 + Math.random() * 700);
 		}
 
 		function startChaos() {
 			prevX = 0;
+			prevY = Math.max(window.innerHeight - PET_SIZE, 0);
+			hasJumped = false;
 			jump();
 		}
 
@@ -93,14 +154,54 @@
 			root!.style.removeProperty('--fsx');
 		}
 
+		function swim() {
+			const margin = PET_SIZE;
+			const maxX = Math.max(window.innerWidth - margin, margin);
+			const maxY = Math.max(window.innerHeight - margin, margin);
+			const targetX = Math.floor(margin / 2 + Math.random() * Math.max(maxX - margin, 1));
+			const targetY = Math.floor(margin / 2 + Math.random() * Math.max(maxY - margin, 1));
+			const flip = targetX < swimX ? -1 : 1;
+			swimX = targetX;
+			swimY = targetY;
+			root!.style.setProperty('--sx', `${targetX}px`);
+			root!.style.setProperty('--sy', `${targetY}px`);
+			root!.style.setProperty('--ssx', String(flip));
+			swimTimer = window.setTimeout(swim, 3400 + Math.random() * 1400);
+		}
+
+		function startSwim() {
+			swimX = Math.floor(window.innerWidth / 2);
+			swimY = Math.floor(window.innerHeight / 2);
+			swim();
+		}
+
+		function stopSwim() {
+			if (swimTimer !== null) {
+				clearTimeout(swimTimer);
+				swimTimer = null;
+			}
+			root!.style.removeProperty('--sx');
+			root!.style.removeProperty('--sy');
+			root!.style.removeProperty('--ssx');
+		}
+
 		button.addEventListener('click', () => {
-			isFrog = !isFrog;
+			const next: Mode = mode === 'cat' ? 'frog' : mode === 'frog' ? 'fish' : 'cat';
+
 			root.classList.remove('puffing');
 			void root.offsetWidth;
 			root.classList.add('puffing');
-			root.classList.toggle('frog', isFrog);
-			if (isFrog) startChaos();
-			else stopChaos();
+
+			if (mode === 'frog') stopChaos();
+			if (mode === 'fish') stopSwim();
+
+			root.classList.toggle('frog', next === 'frog');
+			root.classList.toggle('fish', next === 'fish');
+
+			if (next === 'frog') startChaos();
+			if (next === 'fish') startSwim();
+
+			mode = next;
 		});
 	}
 </script>
@@ -124,7 +225,18 @@
 		transform: translate(var(--fx, 0px), var(--fy, 0px)) rotate(var(--fr, 0deg))
 			scaleX(var(--fsx, 1));
 		transition:
-			transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+			transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+			top 0s,
+			bottom 0s;
+	}
+
+	.tamagotchi.fish {
+		top: 0;
+		bottom: auto;
+		animation: none;
+		transform: translate(var(--sx, 0px), var(--sy, 0px)) scaleX(var(--ssx, 1));
+		transition:
+			transform 3.2s cubic-bezier(0.45, 0, 0.55, 1),
 			top 0s,
 			bottom 0s;
 	}
@@ -163,16 +275,23 @@
 		animation: bob 0.5s steps(2) infinite;
 	}
 
-	.pet-frog {
+	.pet-frog,
+	.pet-fish {
 		opacity: 0;
 	}
 
-	.frog .pet-cat {
+	.frog .pet-cat,
+	.fish .pet-cat {
 		opacity: 0;
 	}
 
 	.frog .pet-frog {
 		opacity: 1;
+	}
+
+	.fish .pet-fish {
+		opacity: 1;
+		animation: fish-bob 1.6s ease-in-out infinite;
 	}
 
 	.puff {
@@ -200,6 +319,14 @@
 
 	.leg-r {
 		animation-delay: 0.25s;
+	}
+
+	.fin {
+		animation: fin-flap 0.45s steps(2) infinite;
+	}
+
+	.fin-bottom {
+		animation-delay: 0.22s;
 	}
 
 	.eye {
@@ -235,6 +362,16 @@
 		}
 	}
 
+	@keyframes fish-bob {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-2px);
+		}
+	}
+
 	@keyframes step {
 		0%,
 		100% {
@@ -242,6 +379,16 @@
 		}
 		50% {
 			transform: translateY(-1px);
+		}
+	}
+
+	@keyframes fin-flap {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(1px);
 		}
 	}
 
@@ -271,12 +418,50 @@
 	@media (prefers-reduced-motion: reduce) {
 		.tamagotchi,
 		.tamagotchi.frog,
+		.tamagotchi.fish,
 		.pet,
 		.leg,
+		.fin,
 		.eye,
 		.puff {
 			animation: none !important;
 			transition: none !important;
+		}
+	}
+</style>
+
+<style is:global>
+	.frog-splash {
+		position: fixed;
+		width: 56px;
+		height: 56px;
+		margin-top: -28px;
+		margin-left: -28px;
+		pointer-events: none;
+		z-index: 39;
+		animation: frog-splash-anim 0.6s ease-out forwards;
+	}
+
+	.frog-splash svg {
+		width: 100%;
+		height: 100%;
+		image-rendering: pixelated;
+	}
+
+	@keyframes frog-splash-anim {
+		0% {
+			transform: scale(0.25) rotate(0deg);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(1.7) rotate(40deg);
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.frog-splash {
+			display: none;
 		}
 	}
 </style>
