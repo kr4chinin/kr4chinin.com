@@ -38,3 +38,5 @@ yarn-error.log*
 
 # Generated types
 .astro/
+
+.claude/
