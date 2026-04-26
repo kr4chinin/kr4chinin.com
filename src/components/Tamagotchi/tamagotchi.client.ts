@@ -1,7 +1,6 @@
 type Mode = 'cat' | 'frog' | 'fish';
 
 const PET_SIZE = 48;
-const HINT_KEY = 'tamagotchi-hint-dismissed';
 const HINT_DELAY_MS = 3000;
 
 function clamp(value: number, min: number, max: number) {
@@ -161,10 +160,6 @@ export function initTamagotchi() {
 	let hintTimer: number | null = null;
 	let hintRaf: number | null = null;
 
-	try {
-		hintDismissed = localStorage.getItem(HINT_KEY) === '1';
-	} catch {}
-
 	function followHintToCat() {
 		if (!hint) return;
 		const rect = root!.getBoundingClientRect();
@@ -182,9 +177,6 @@ export function initTamagotchi() {
 	function hideHint() {
 		if (hintDismissed) return;
 		hintDismissed = true;
-		try {
-			localStorage.setItem(HINT_KEY, '1');
-		} catch {}
 		hint?.classList.remove('show');
 		if (hintTimer !== null) {
 			clearTimeout(hintTimer);
