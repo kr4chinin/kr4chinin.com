@@ -2,7 +2,10 @@
 import type { LinkItem } from '~/models/LinkItem';
 import NavigationLink from './NavigationLink.astro';
 
-const links: LinkItem[] = [{ href: '/', label: 'About' }];
+const links: LinkItem[] = [
+	{ href: '/', label: 'About' },
+	{ href: '/guestbook', label: 'Guest Book' },
+];
 ---
 
 <div class="bg-slate-200">

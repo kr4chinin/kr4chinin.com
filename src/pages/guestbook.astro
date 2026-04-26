@@ -1,0 +1,24 @@
+---
+import AboutHeader from '~/components/About/Header/AboutHeader.astro';
+import Giscus from '~/components/Guestbook/Giscus.astro';
+import Layout from '~/layouts/Layout.astro';
+---
+
+<Layout>
+	<AboutHeader />
+
+	<main class="flex flex-grow">
+		<div class="mx-auto flex w-full max-w-3xl flex-col px-4 py-6">
+			<div class="flex flex-col gap-4 leading-relaxed text-pretty hyphens-none">
+				<h1 class="text-2xl font-bold text-gray-900">Guest Book</h1>
+
+				<p class="max-w-prose">
+					Hey! Sign in with GitHub and leave a note — say hi, share what you’re building, or
+					just drop a thought. Be kind.
+				</p>
+
+				<Giscus />
+			</div>
+		</div>
+	</main>
+</Layout>

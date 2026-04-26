@@ -4,6 +4,16 @@ interface Props {
 }
 
 const { href } = Astro.props;
+const isActive = Astro.url.pathname === href;
 ---
 
-<a class="text-gray-700 hover:underline" href={href}><slot /></a>
+<a
+	class:list={[
+		'text-gray-700 hover:underline',
+		{ 'font-semibold underline underline-offset-4': isActive },
+	]}
+	href={href}
+	aria-current={isActive ? 'page' : undefined}
+>
+	<slot />
+</a>
