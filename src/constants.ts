@@ -5,3 +5,5 @@ export enum Socials {
 	LINKED_IN = 'https://linkedin.com/in/kruchinin-ilya',
 	EMAIL = 'mailto:kr4chinin@icloud.com',
 }
+
+export const READABLE_ROLE = 'Software Engineer';
