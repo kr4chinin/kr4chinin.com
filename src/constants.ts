@@ -6,4 +6,4 @@ export enum Socials {
 	EMAIL = 'mailto:kr4chinin@icloud.com',
 }
 
-export const READABLE_ROLE = 'Software Engineer';
+export const READABLE_ROLE = 'Frontend Team Lead';
