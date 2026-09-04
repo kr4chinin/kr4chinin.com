@@ -10,23 +10,23 @@
 		"astro": "astro",
 		"format": "bunx prettier --write .",
 		"ts": "tsc --noEmit",
-		"lint:css:fix": "bunx stylelint \"**/*.css\" --fix"
+		"lint:css:fix": "bunx stylelint \"**/*.css\" --ignore-path .gitignore --fix"
 	},
 	"dependencies": {
-		"@astrojs/mdx": "^4.3.7",
-		"@vercel/speed-insights": "^1.2.0",
-		"astro": "^5.14.4"
+		"@astrojs/mdx": "^8.0.0",
+		"@vercel/speed-insights": "^2.0.0",
+		"astro": "^7.3.1"
 	},
 	"devDependencies": {
-		"@tailwindcss/vite": "^4.1.14",
-		"prettier": "^3.6.2",
+		"@tailwindcss/vite": "^4.3.3",
+		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-organize-imports": "^4.3.0",
-		"prettier-plugin-tailwindcss": "^0.6.14",
-		"sharp": "^0.34.4",
-		"stylelint": "^16.25.0",
-		"stylelint-config-clean-order": "^7.0.0",
-		"stylelint-config-standard-scss": "^16.0.0",
-		"tailwindcss": "^4.1.14"
+		"prettier-plugin-tailwindcss": "^0.8.1",
+		"sharp": "^0.35.4",
+		"stylelint": "^17.14.1",
+		"stylelint-config-clean-order": "^10.0.0",
+		"stylelint-config-standard-scss": "^17.0.0",
+		"tailwindcss": "^4.3.3"
 	}
 }
