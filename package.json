@@ -2,14 +2,15 @@
 	"name": "kr4chinin.com",
 	"type": "module",
 	"version": "0.0.1",
+	"packageManager": "bun@1.4.0",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"format": "pnpm dlx prettier --write .",
+		"format": "bunx prettier --write .",
 		"ts": "tsc --noEmit",
-		"lint:css:fix": "pnpm dlx stylelint \"**/*.css\" --fix"
+		"lint:css:fix": "bunx stylelint \"**/*.css\" --fix"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "^4.3.7",
